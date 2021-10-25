@@ -6,6 +6,12 @@ from django.apps import apps
 
 # TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
 
+# create qurey and filter to diplay customers for the day
+
+# create link to confirm completion and charge $20 to the customers account
+
+# create filter to show customers who have pickup that day
+
 
 def index(request):
     # This line will get the Customer model from the other app, it can now be used to query the db for Customers

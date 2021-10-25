@@ -4,5 +4,13 @@
 
 {% block content %}
  <!-- Display the create profile form -->
-  {% endif %}
+<form action="{% url 'employees:create' %}" method="post">
+    {% csrf_token %}
+    Name: <input type="text" name="name" id="name"><br />
+    Zip Code: <input type="text" name="zip_code" id="zip_code"><br />
+    Badge Number <input type="int" name="badge_number" id="badge_number"><br />
+    <input type="submit" value="Register">
+</form>
+
+ 
 {% endblock %}

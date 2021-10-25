@@ -27,6 +27,8 @@ def create(request):
 
 # create qurey and filter to diplay customers for the day
 
+def 
+
 # create link to confirm completion and charge $20 to the customers account
 
 # create filter to show customers who have pickup that day

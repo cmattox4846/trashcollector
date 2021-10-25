@@ -5,7 +5,8 @@
 {% block content %}
 <!-- dropdown for the day  return to the function  -->
 <!-- display the list of todays customers, link to or box to confirm pick is complete -->
-
+  {% for item in not_picked_up%}
+  {{item.name}}
+  {%endfor%}
  
-  {% endif %}
 {% endblock %}

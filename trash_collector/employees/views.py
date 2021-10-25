@@ -41,6 +41,23 @@ def edit_profile(request):
         }
         return render(request, 'employees/edit_profile.html', context)
 
+def route(request):
+    logged_in_user = request.user
+    logged_in_employee = Employee.objects.get(user=logged_in_user)
+    logged_in_employee_zip_code = logged_in_employee.zip_code
+    today = date.today
+    Customer = apps.get_model('customers.Customer')
+    all_customers = Customer.objects.all()
+    customer_same_zip_code = all_customers.filter('logged_in_employee_zip_code'=all_customers.zip_code)
+    and_not_suspended = customer_same_zip_code.exclude('customer_same_zip_code.suspend_start__lt'=today).exclude('customer_same_zip_code.suspend_end__gt'=today)
+    and_not_picked_up = and_not_suspended.exclude('date_of_last_pickup'=today)
+    context = {
+        'and_not_picked_up': and_not_picked_up,
+        'today': today
+    }
+    return render(request, 'employees/route.html', context)
+
+
 # create qurey and filter to diplay customers for the day
 
 # create link to confirm completion and charge $20 to the customers account
@@ -58,6 +75,7 @@ def index(request):
 
         today = date.today()
         
+        
         context = {
             'logged_in_employee': logged_in_employee,
             'today': today
@@ -67,5 +85,5 @@ def index(request):
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
     # This line will get the Customer model from the other app, it can now be used to query the db for Customers
-    # Customer = apps.get_model('customers.Customer')
+    
     # return render(request, 'employees/index.html')

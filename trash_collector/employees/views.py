@@ -89,6 +89,25 @@ def update_balance(customer_id):
 
 # create filter to show customers who have pickup that day
 
+def choose_route(request):
+    
+    
+    if request.method == "POST":
+        logged_in_user = request.user
+        logged_in_employee = Employee.objects.get(user=logged_in_user)
+        
+        day_from_form = request.POST.get('daySelect')
+        day_chosen = day_from_form
+        Customer = apps.get_model('customers.Customer')
+        customer_service_day = Customer.objects.filter(weekly_pickup = day_chosen)
+        context = {
+            'customer_service_day': customer_service_day,
+            'logged_in_employee': logged_in_employee.name
+        }
+        return render(request, 'employees/choose_route.html', context)
+        # return HttpResponseRedirect(reverse('employees:choose_route', kwargs={'customer_service_day':customer_service_day}))
+    else:
+        return render(request, 'employees/choose_route.html')
 
 
 def index(request):

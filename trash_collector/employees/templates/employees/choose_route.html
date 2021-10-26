@@ -1,0 +1,25 @@
+{% extends 'employees\employee_base.html' %}
+
+{% block title %}{% block header %} {{logged_in_employee}}'s Daily Route {% endblock %}{% endblock %}
+
+{% block content %}
+
+<form method="POST" action = >{% csrf_token %}
+    <label for="daySelect">Choose day</label>
+    <select type="text" id="daySelect" name="daySelect">
+        <option selected>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit!"/>
+</form>
+<br>
+<br>
+<h1>These are the customers</h1>
+{% for customers in customer_service_day%}
+{{customers.name}} <br>
+{%endfor%}
+{% endblock %}

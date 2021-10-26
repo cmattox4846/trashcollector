@@ -6,14 +6,14 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from datetime import date
-
 import calendar
-
+from django.db.models import Q
+import calendar
 from .models import Employee
 
 # Create your views here.
 
-# TODO: Create a function for each path created in employees/urls.py. Each will need a template as well.
+
 
 def create(request):
     logged_in_user = request.user
@@ -48,30 +48,47 @@ def route(request):
     logged_in_employee = Employee.objects.get(user=logged_in_user)
     logged_in_employee_zip_code = logged_in_employee.zip_code
     today = date.today
-   
     curr_date = date.today()
-    calendar.day_name[curr_date.weekday()]
+
     Customer = apps.get_model('customers.Customer')
-    all_customers = Customer.objects.all().values('zip_code', 'name', 'date_of_last_pickup')
-    customer_same_zip_code = all_customers.filter(zip_code = logged_in_employee_zip_code)
-    # and_not_suspended = customer_same_zip_code.exclude('customer_same_zip_code.suspend_start__lt'=today).exclude('customer_same_zip_code.suspend_end__gt'=today)
-    and_not_picked_up = customer_same_zip_code.exclude(today = date_of_last_pickup)
+    customer_same_zip_code = Customer.objects.filter(zip_code = logged_in_employee_zip_code)
+    customer_pick_up_today = customer_same_zip_code.filter(Q(weekly_pickup = calendar.day_name[curr_date.weekday()])|Q(one_time_pickup = curr_date))
+    and_not_suspended = customer_pick_up_today.exclude(Q(suspend_start__lte=curr_date)&Q(suspend_end__gte=curr_date))
+    and_not_picked_up = and_not_suspended.exclude(date_of_last_pickup = curr_date)
     context = {
-        'customer_same_zip_code': customer_same_zip_code,
-        # 'and_not_picked_up': and_not_picked_up,
+        'valid_route': and_not_picked_up,
         'today': today,
         'logged_in_employee':logged_in_employee.name
     }
     return render(request, 'employees/route.html', context)
 
 
-# create qurey and filter to diplay customers for the day
+def serviced(request,customer_id):
+    logged_in_user = request.user
 
+    Customer = apps.get_model('customers.Customer')
+    customer_info = Customer.objects.get(pk = customer_id)
+    curr_date = date.today()
+        
+    if customer_info.date_of_last_pickup != curr_date:
+        customer_info.date_of_last_pickup= curr_date  
+        customer_info.save()
+
+    update_balance(customer_id)
+
+    return HttpResponseRedirect(reverse('employees:route'))
 
 
 # create link to confirm completion and charge $20 to the customers account
+def update_balance(customer_id):
+    Customer = apps.get_model('customers.Customer')
+    customer_being_confirmed = Customer.objects.get(pk = customer_id)
+    customer_being_confirmed.balance += 20
+    customer_being_confirmed.save()
+
 
 # create filter to show customers who have pickup that day
+
 
 
 def index(request):

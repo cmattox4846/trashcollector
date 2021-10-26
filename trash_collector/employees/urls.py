@@ -9,5 +9,6 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('new/', views.create, name="create"),
     path('edit_profile/', views.edit_profile, name="edit_profile"),
-    path('route/', views.route, name="route")
+    path('route/', views.route, name="route"),
+    path('serviced/<int:customer_id>/', views.serviced, name="serviced")
 ]

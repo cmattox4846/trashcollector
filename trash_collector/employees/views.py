@@ -7,6 +7,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from datetime import date
 
+import calendar
+
 from .models import Employee
 
 # Create your views here.
@@ -46,6 +48,9 @@ def route(request):
     logged_in_employee = Employee.objects.get(user=logged_in_user)
     logged_in_employee_zip_code = logged_in_employee.zip_code
     today = date.today
+   
+    curr_date = date.today()
+    calendar.day_name[curr_date.weekday()]
     Customer = apps.get_model('customers.Customer')
     all_customers = Customer.objects.all().values('zip_code', 'name', 'date_of_last_pickup')
     customer_same_zip_code = all_customers.filter(zip_code = logged_in_employee_zip_code)

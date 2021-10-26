@@ -5,9 +5,9 @@
 {% block content %}
 <!-- dropdown for the day  return to the function  -->
 <!-- display the list of todays customers, link to or box to confirm pick is complete -->
-  {% for item in customer_same_zip_code %}
-    {{item.name}} Service Zip Code:{{item.zip_code}}
+  {% for item in valid_route %}
+    {{item.name}} Service Zip Code:{{item.zip_code}} <br>
   {%endfor%}
-Todays Date:: {{today}}
+Todays Date: {{today}}
  
 {% endblock %}

@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 from datetime import date
+import calendar
+from django.db.models import Q
 
 from .models import Employee
 
@@ -46,13 +48,16 @@ def route(request):
     logged_in_employee = Employee.objects.get(user=logged_in_user)
     logged_in_employee_zip_code = logged_in_employee.zip_code
     today = date.today
+    curr_date = date.today()
+
     Customer = apps.get_model('customers.Customer')
-    all_customers = Customer.objects.all().values('zip_code', 'name', 'date_of_last_pickup')
+    all_customers = Customer.objects.all().values('zip_code', 'name', 'weekly_pickup', 'one_time_pickup', 'suspend_start','suspend_end', 'date_of_last_pickup')
     customer_same_zip_code = all_customers.filter(zip_code = logged_in_employee_zip_code)
-    # and_not_suspended = customer_same_zip_code.exclude('customer_same_zip_code.suspend_start__lt'=today).exclude('customer_same_zip_code.suspend_end__gt'=today)
-    and_not_picked_up = customer_same_zip_code.exclude(today = date_of_last_pickup)
+    customer_pick_up_today = customer_same_zip_code.filter(Q(weekly_pickup = calendar.day_name[curr_date.weekday()])|Q(one_time_pickup = curr_date))
+    and_not_suspended = customer_pick_up_today.exclude(Q(suspend_start__lte=curr_date)&Q(suspend_end__gte=curr_date))
+    and_not_picked_up = and_not_suspended.exclude(date_of_last_pickup = curr_date)
     context = {
-        'customer_same_zip_code': customer_same_zip_code,
+        'valid_route': and_not_picked_up,
         # 'and_not_picked_up': and_not_picked_up,
         'today': today,
         'logged_in_employee':logged_in_employee.name

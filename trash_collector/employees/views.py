@@ -43,7 +43,7 @@ def edit_profile(request):
 
 # create qurey and filter to diplay customers for the day
 
-def 
+
 
 # create link to confirm completion and charge $20 to the customers account
 

@@ -105,9 +105,15 @@ def choose_route(request):
             'logged_in_employee': logged_in_employee.name
         }
         return render(request, 'employees/choose_route.html', context)
-        # return HttpResponseRedirect(reverse('employees:choose_route', kwargs={'customer_service_day':customer_service_day}))
+        
     else:
-        return render(request, 'employees/choose_route.html')
+        logged_in_user = request.user
+        logged_in_employee = Employee.objects.get(user=logged_in_user)
+        context = {
+           
+            'logged_in_employee': logged_in_employee.name
+        }
+        return render(request, 'employees/choose_route.html',context)
 
 
 def index(request):

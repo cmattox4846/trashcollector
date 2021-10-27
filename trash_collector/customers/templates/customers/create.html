@@ -5,14 +5,38 @@
 {% block header %} Please Complete Registration {% endblock %}
 
 {% block content %}
+<br />
+<div class="container">
+    <form action="{% url 'customers:create' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+                <label align ="left" class = "col-2"  for ='name'>Name:</label> 
+                <input align ="left" type="text" name="name" class = "col-6" class="form-control" id="name">
+            </div> <br>
+            <div class="form-group">
+                <label align ="left" class = "col-2" for="address">Address: </label>
+                <input align ="left" type="text" name="address" class = "col-6" class="form-control" id="address" >
+            </div> <br>
+            <div class="form-group">
+                <label align ="left" class = "col-2" for="zip_code">Zip Code: </label>
+                <input align ="left" type="text" name="zip_code" class = "col-6"  id="zip_code" >
+            </div> <br>
+            <div class="form-group">
+                <label align ="left" class = "col-2" for="weekly_pickup">Choose weekly pickup day: </label>
+                <input align ="left" type="text" name="weekly_pickup" class = "col-6" id="weekly_pickup" >
+            </div> <br>
+        </div>  
+        <input class="btn btn-primary" type="submit" value="Submit">
+        
+    </form>
+</div>
 
-<form action="{% url 'customers:create' %}" method="post">
+{% endblock %}
+<!-- <form action="{% url 'customers:create' %}" method="post">
     {% csrf_token %}
     Name: <input type="text" name="name" id="name"><br />
     Address: <input type="text" name="address" id="address"><br />
     Zip Code: <input type="text" name="zip_code" id="zip_code"><br />
     Choose your Weekly Pickup Day: <input type="text" name="weekly_pickup" id="weekly_pickup"><br />
     <input type="submit" value="Register">
-</form>
-
-{% endblock %}
+</form> -->

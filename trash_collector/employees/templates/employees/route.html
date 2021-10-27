@@ -3,11 +3,13 @@
 {% block title %}{% block header %} {{logged_in_employee}}'s Daily Route {% endblock %}{% endblock %}
 
 {% block content %}
-<!-- dropdown for the day  return to the function  -->
-<!-- display the list of todays customers, link to or box to confirm pick is complete -->
-  {% for customer in valid_route %}
-    {{customer.name}} Service Zip Code:{{customer.zip_code}} <br> <a href="{% url 'employees:serviced' customer.id %}">Mark Serviced</a>
+<div> <h3> Todays Date: {{today}}</h3></div> <br>
+
+  {% for customer in valid_route %} 
+   
+   <div> Customer: {{customer.name}} </div> Zip Code: {{customer.zip_code}} <br>  <a class="btn btn-primary btn-sm" href="{% url 'employees:serviced' customer.id %}" role="button">Mark Serviced</a> <br>
+    <br>
   {%endfor%}
-Todays Date: {{today}}
+
  
 {% endblock %}

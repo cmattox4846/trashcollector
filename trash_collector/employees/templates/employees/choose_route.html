@@ -7,7 +7,7 @@
 <form method="POST" action = >{% csrf_token %}
     <label for="daySelect">Choose a day</label>
     <select type="text" id="daySelect" name="daySelect">
-        <option selected>Monday</option>
+        <option>Monday</option>
         <option>Tuesday</option>
         <option>Wednesday</option>
         <option>Thursday</option>
@@ -18,7 +18,7 @@
 </form>
 <br>
 <br>
-<h2>Here are todays customers:</h2>
+<h2>Here are {{day_chosen}}'s' customers:</h2>
 
 <!--  working on col for the for statement -->
 <div class="container">

@@ -9,7 +9,7 @@
            
                
                
-                    <form class="form-horizontal" action="{% url 'employees:edit_profile' %}" method="post">
+                <form class="form-horizontal" action="{% url 'employees:edit_profile' %}" method="post">
                         {% csrf_token %}
                 <div class="form-group" > 
                     <label align ="left" class = "col-2"  for ='name'>Name:</label> 

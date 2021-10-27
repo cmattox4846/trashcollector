@@ -102,7 +102,8 @@ def choose_route(request):
         customer_service_day = Customer.objects.filter(weekly_pickup = day_chosen)
         context = {
             'customer_service_day': customer_service_day,
-            'logged_in_employee': logged_in_employee.name
+            'logged_in_employee': logged_in_employee.name,
+            'day_chosen':day_chosen
         }
         return render(request, 'employees/choose_route.html', context)
         

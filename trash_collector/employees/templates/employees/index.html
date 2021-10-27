@@ -1,13 +1,50 @@
 {% extends 'employees\employee_base.html' %}
 
-{% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
+<div  class="container-fluid">
+  <div class="row col-sm"><div class= "col-12 p-3 mb-2 bg-primary text-dark">
+   
+      {% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
 
-{% block content %}
-  {% if user.is_authenticated %}
-    <h2>Hello {{ user.username }}!</h2>
-  {% else %}
-    <p>You are at the employee index, but you are not logged in.</p>
-    <a href="{% url 'login' %}">Log In</a>
-    <a href="{% url 'accounts:register' %}">Sign Up</a>
-  {% endif %}
-{% endblock %}
+      {% block content %}
+      
+       {% if user.is_authenticated %}
+          <h2>Hello {{ user.username }}!</h2>
+  
+  
+        {% else %}
+          <p>You are at the employee index, but you are not logged in.</p>
+          <a href="{% url 'login' %}">Log In</a>
+          <a href="{% url 'accounts:register' %}">Sign Up</a>
+        {% endif %}
+      </div> 
+  </div>
+  <div class="row"><br><br></div>
+  <div class="row ">
+    <div class="col-9 p-3 mb-2 bg-light  text-dark border border-dark"><h3>How plastic waste engulfed the world</h3>
+      <p>BY LAURA PARKER<br>
+        PUBLISHED JULY 23, 2020<br>
+        Though we don’t know exactly how much plastic is in the ocean, we do know more about what drives the growth of plastic waste. Global population growth and the increasing plastic production account for part of it. Per capita use is on the rise, especially in developing nations—India, for example—with an expanding middle class and low rates of garbage collection. Finally, cheap virgin plastic enables a shift into production of an increasing number of low-value plastic products that are not recyclable, adding to the glut of plastics that go uncollected.
+        
+        Martin Stuchtey, SYSTEMIQ’s co-founder and managing partner, says he hopes the project will bring clarity to the global debate about solutions, which are often contradictory, unworkable, or unsustainable. For example, incineration and open burning of plastic are on the rise, and if nothing changes, could increase from 49 million metric tons in 2016 to 133 million metric tons in 2040.
+        
+        Recycling is one of the most effective means of reducing the use of virgin plastic, but first it has to be collected, and today two billion people lack access to waste collection systems. By 2040 that number will double to four billion, mostly in rural areas in middle- and low-income countries. Closing the collection gap and connecting them to a garbage system, Pew found, would require connecting 500,000 people a day, every day, between now and 2040. That is an inconceivable prospect, but was included in the report to convey the enormity of the problems involved in containing waste on a global scale.
+        
+        “Good luck with that,” says Yoni Shiran, a SYSTEMIQ project manager and one of the co-authors of the Science paper. “If that’s not going to happen, the solution is to come up with a wiser system.”
+        </p></div>
+          <div class="col-1"></div>
+          <div class="col-2 col-sm p-3 mb-2 bg-info text-dark border border-dark"><h3 class="float-center">Todo List</h3><br>
+            <ul>
+              
+              <li>Managers Meeting</li><br>
+              <li>Beths Birthday Party</li><br>
+              <li>HR Training </li><br>
+              <li>Pay Rent</li><br>
+              <li>Buy Halloween Costume</li><br>
+              <li>Finish Billiing Report</li><br>
+              <li>Sign up for Class</li><br>
+            
+            </ul>
+            </div>
+
+      {% endblock %}
+</div>

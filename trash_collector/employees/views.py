@@ -110,9 +110,12 @@ def choose_route(request):
     else:
         logged_in_user = request.user
         logged_in_employee = Employee.objects.get(user=logged_in_user)
+        day_from_form = request.POST.get('daySelect')
+        day_chosen = day_from_form
         context = {
            
-            'logged_in_employee': logged_in_employee.name
+            'logged_in_employee': logged_in_employee.name,
+            'day_chosen':day_chosen
         }
         return render(request, 'employees/choose_route.html',context)
 

@@ -7,7 +7,7 @@
 <form method="POST" action = >{% csrf_token %}
     <label for="daySelect">Choose day</label>
     <select type="text" id="daySelect" name="daySelect">
-        <option selected>Monday</option>
+        <option>Monday</option>
         <option>Tuesday</option>
         <option>Wednesday</option>
         <option>Thursday</option>
@@ -18,12 +18,27 @@
 </form>
 <br>
 <br>
-<h2>Here are todays customers:</h2>
+<h2>Here are {{day_chosen}}'s' customers:</h2>
 
 <!--  working on col for the for statement -->
 <div class="container">
-    {% for customers in customer_service_day%}
-    <p>Name: {{customers.name}} - Zipcode: {{customers.zip_code}} - Balance: ${{customers.balance}}</p>
-    {%endfor%}
+    
+    <div class="col-1"></div>
+        <div class="col-10">
+            {% for customers in customer_service_day%}
+            <div class="row ">
+                <div class="col-4" align="left">
+                    <h5>Name: {{customers.name}}</h5>
+                </div>
+                <div class="col-4" align="left">
+                <h5> Zipcode: {{customers.zip_code}}</h5>
+                </div> 
+                <div class="col-4"align="left"> 
+                <h5>  Balance: ${{customers.balance}}</h5>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    <div class="col-1"></div>
 </div>
 {% endblock %}

@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+# import os
+# from local_settings import *
+
+import googlemaps
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -18,6 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
+
+# Google Key
+# google_api_key = local_settings.get('google_api_key')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

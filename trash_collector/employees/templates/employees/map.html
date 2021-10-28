@@ -1,8 +1,19 @@
 {% extends 'employees\employee_base.html' %}
 
-{% block title %}{% block header %} {{logged_in_employee}}'s Daily Route {% endblock %}{% endblock %}
+{% block title %}{% block header %} {{customer_name}}'s Mapped Location {% endblock %}{% endblock %}
 
 {% block content %}
+
+<iframe
+  width="600"
+  height="450"
+  style="border:0"
+  loading="lazy"
+  allowfullscreen
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAPoU7Iiqb5Zz3RPJmuW5Ey4NWA5oIhRVg
+    &q={{map}}">
+</iframe>
+
 
 
 

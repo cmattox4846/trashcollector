@@ -11,6 +11,8 @@ from django.db.models import Q
 import calendar
 from .models import Employee
 import googlemaps
+# from google_api_key import key
+# from django.conf import settings
 
 # Create your views here.
 
@@ -109,7 +111,7 @@ def choose_route(request):
             'customer_service_day': customer_service_day,
             'logged_in_employee': logged_in_employee.name,
             'day_chosen':day_chosen,
-            'map':map
+            
         }
         return render(request, 'employees/choose_route.html', context)
         
@@ -148,9 +150,15 @@ def index(request):
         return HttpResponseRedirect(reverse('employees:create'))
    
 
-# def map_it():
-#     gmaps = googlemaps.Client(key='AIzaSyAPoU7Iiqb5Zz3RPJmuW5Ey4NWA5oIhRVg')
-#     geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
-#     addresslonglat = "30.317433629335287, -81.4533045"
-#     address = '13300 Atlantic Blvd, Jacksonville, FL 32225'
-#     return address
+def map(request, customer_id):
+    Customer = apps.get_model('customers.Customer')
+    customer_to_use = Customer.objects.get(id = customer_id)
+    map = customer_to_use.address
+    customer_name = customer_to_use.name
+    
+    context={
+        'map':map,
+        'customer_name':customer_name,
+        # 'key':settings.google_api_key
+    }
+    return render(request, 'employees/map.html', context) 

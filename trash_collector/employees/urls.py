@@ -12,6 +12,6 @@ urlpatterns = [
     path('route/', views.route, name="route"),
     path('serviced/<int:customer_id>/', views.serviced, name="serviced"),
     path('choose_route/', views.choose_route, name="choose_route"),
-    
+    path('map/<int:customer_id>', views.map, name="map"),
 
 ]

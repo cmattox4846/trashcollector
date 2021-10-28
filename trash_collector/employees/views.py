@@ -10,6 +10,7 @@ import calendar
 from django.db.models import Q
 import calendar
 from .models import Employee
+import googlemaps
 
 # Create your views here.
 
@@ -90,32 +91,38 @@ def update_balance(customer_id):
 # create filter to show customers who have pickup that day
 
 def choose_route(request):
-    
+    Customer = apps.get_model('customers.Customer')
+    logged_in_user = request.user
+    logged_in_employee = Employee.objects.get(user=logged_in_user)
     
     if request.method == "POST":
-        logged_in_user = request.user
-        logged_in_employee = Employee.objects.get(user=logged_in_user)
-        
+       
+       
         day_from_form = request.POST.get('daySelect')
         day_chosen = day_from_form
         Customer = apps.get_model('customers.Customer')
+        
         customer_service_day = Customer.objects.filter(weekly_pickup = day_chosen)
+        customer_to_use = Customer.objects.get(id = 3)
+        map = customer_to_use.address
         context = {
             'customer_service_day': customer_service_day,
             'logged_in_employee': logged_in_employee.name,
-            'day_chosen':day_chosen
+            'day_chosen':day_chosen,
+            'map':map
         }
         return render(request, 'employees/choose_route.html', context)
         
     else:
-        logged_in_user = request.user
-        logged_in_employee = Employee.objects.get(user=logged_in_user)
+        
+       
         day_from_form = request.POST.get('daySelect')
         day_chosen = day_from_form
         context = {
            
             'logged_in_employee': logged_in_employee.name,
-            'day_chosen':day_chosen
+            'day_chosen':day_chosen,
+           
         }
         return render(request, 'employees/choose_route.html',context)
 
@@ -139,6 +146,11 @@ def index(request):
         
     except ObjectDoesNotExist:
         return HttpResponseRedirect(reverse('employees:create'))
-    # This line will get the Customer model from the other app, it can now be used to query the db for Customers
-    
-    # return render(request, 'employees/index.html')
+   
+
+# def map_it():
+#     gmaps = googlemaps.Client(key='AIzaSyAPoU7Iiqb5Zz3RPJmuW5Ey4NWA5oIhRVg')
+#     geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
+#     addresslonglat = "30.317433629335287, -81.4533045"
+#     address = '13300 Atlantic Blvd, Jacksonville, FL 32225'
+#     return address

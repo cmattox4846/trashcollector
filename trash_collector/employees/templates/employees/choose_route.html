@@ -26,4 +26,15 @@
     <p>Name: {{customers.name}} | Zipcode: {{customers.zip_code}} | Balance: ${{customers.balance}}</p>
     {%endfor%}
 </div>
+
+<iframe
+  width="600"
+  height="450"
+  style="border:0"
+  loading="lazy"
+  allowfullscreen
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAPoU7Iiqb5Zz3RPJmuW5Ey4NWA5oIhRVg
+    &q={{map}}">
+</iframe>
+
 {% endblock %}

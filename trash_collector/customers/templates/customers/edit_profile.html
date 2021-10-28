@@ -11,19 +11,19 @@
         {% csrf_token %}
         <div class="form-group">
                 <label align ="left" class = "col-2"  for ='name'>Name:</label> 
-                <input align ="left" type="text" class = "col-6" class="form-control" id="name"  value="{{logged_in_customer.name}}">
+                <input align ="left" type="text" name= 'name' class = "col-6" class="form-control" id="name"  value="{{logged_in_customer.name}}">
             </div> <br>
             <div class="form-group">
                 <label align ="left" class = "col-2" for="address">Address: </label>
-                <input align ="left" type="text" class = "col-6" class="form-control" id="address" value="{{logged_in_customer.address}}">
+                <input align ="left" type="text" class = "col-6" name= 'address'class="form-control" id="address" value="{{logged_in_customer.address}}">
             </div> <br>
             <div class="form-group">
                 <label align ="left" class = "col-2" for="zip_code">Zip Code: </label>
-                <input align ="left" type="text" class = "col-6"  id="zip_code" value="{{logged_in_customer.zip_code}}">
+                <input align ="left" type="text"name= 'zip_code' class = "col-6"  id="zip_code" value="{{logged_in_customer.zip_code}}">
             </div> <br>
             <div class="form-group">
                 <label align ="left" class = "col-2" for="weekly">Weekly Pickup: </label>
-                <input align ="left" type="text" class = "col-6" id="weekly" value="{{logged_in_customer.weekly_pickup}}">
+                <input align ="left" type="text" name= 'weekly'class = "col-6" id="weekly" value="{{logged_in_customer.weekly_pickup}}">
             </div> <br>
         </div>  
         <input class="btn btn-primary" type="submit" value="Submit">
